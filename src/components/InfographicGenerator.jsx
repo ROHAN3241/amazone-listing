@@ -270,7 +270,7 @@ async function generateLifestyleImage(canvas, productImg, title, description) {
   ctx.fillText('SHOP NOW →', textX + 125, HEIGHT - 88);
 }
 
-export default function InfographicGenerator({ imagePreview, listingData }) {
+export default function InfographicGenerator({ imagePreview, listingData, onImagesGenerated }) {
   const [images, setImages] = useState({ main: null, feature: null, lifestyle: null });
   const [generating, setGenerating] = useState(false);
   const mainCanvasRef = useRef(null);
@@ -290,15 +290,17 @@ export default function InfographicGenerator({ imagePreview, listingData }) {
         return match ? match[0].replace(/[-–—:]/, '').trim() : bp.substring(0, 50);
       }) || [];
 
+      const newImages = {};
+
       // Generate all three infographics
       if (mainCanvasRef.current) {
         await generateMainImage(mainCanvasRef.current, productImg, listingData.title || '');
-        setImages((prev) => ({ ...prev, main: mainCanvasRef.current.toDataURL('image/png') }));
+        newImages.main = mainCanvasRef.current.toDataURL('image/png');
       }
 
       if (featureCanvasRef.current) {
         await generateFeatureImage(featureCanvasRef.current, productImg, features);
-        setImages((prev) => ({ ...prev, feature: featureCanvasRef.current.toDataURL('image/png') }));
+        newImages.feature = featureCanvasRef.current.toDataURL('image/png');
       }
 
       if (lifestyleCanvasRef.current) {
@@ -308,14 +310,21 @@ export default function InfographicGenerator({ imagePreview, listingData }) {
           listingData.title || '',
           listingData.description || ''
         );
-        setImages((prev) => ({ ...prev, lifestyle: lifestyleCanvasRef.current.toDataURL('image/png') }));
+        newImages.lifestyle = lifestyleCanvasRef.current.toDataURL('image/png');
+      }
+
+      setImages(newImages);
+
+      // Notify parent of generated images for PDF export
+      if (onImagesGenerated) {
+        onImagesGenerated(newImages);
       }
     } catch {
       toast.error('Failed to generate infographics. Please try again.');
     } finally {
       setGenerating(false);
     }
-  }, [imagePreview, listingData]);
+  }, [imagePreview, listingData, onImagesGenerated]);
 
   useEffect(() => {
     generateInfographics();
