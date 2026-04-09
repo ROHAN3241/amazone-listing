@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step 3 — 50% Material Dispatch</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: #0f172a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ───── Road Lines Background ───── */
+    .road-lines {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 40px,
+        rgba(251, 191, 36, 0.15) 40px,
+        rgba(251, 191, 36, 0.15) 80px
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s;
+    }
+
+    .road-lines.visible { opacity: 1; }
+
+    /* ───── Card ───── */
+    .card {
+      position: relative;
+      width: 380px;
+      padding: 48px 36px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(251, 191, 36, 0.15);
+      text-align: center;
+      opacity: 0;
+      transform: translateX(100px) scale(0.9);
+    }
+
+    .card.reveal {
+      animation: driveIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes driveIn {
+      0%   { opacity: 0; transform: translateX(100px) scale(0.9); }
+      60%  { opacity: 1; transform: translateX(-8px) scale(1.01); }
+      80%  { transform: translateX(3px) scale(1); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* Amber border glow */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #FBBF24, transparent 40%, #FBBF24);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .card.reveal::before { opacity: 0.25; }
+
+    /* ───── Step Badge ───── */
+    .step-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 20px;
+      border-radius: 20px;
+      background: #FBBF24;
+      color: #0f172a;
+    }
+
+    /* ───── Truck Scene ───── */
+    .truck-scene {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      margin: 16px 0 20px;
+      overflow: hidden;
+    }
+
+    /* Moving road */
+    .road {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    .road-dashes {
+      position: absolute;
+      bottom: 9px;
+      left: 0;
+      width: 200%;
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(251, 191, 36, 0.4) 0px,
+        rgba(251, 191, 36, 0.4) 16px,
+        transparent 16px,
+        transparent 32px
+      );
+      opacity: 0;
+    }
+
+    .road-dashes.animate {
+      opacity: 1;
+      animation: roadScroll 1.5s linear infinite;
+    }
+
+    @keyframes roadScroll {
+      to { transform: translateX(-50%); }
+    }
+
+    /* Truck body */
+    .truck {
+      position: absolute;
+      left: -120px;
+      bottom: 16px;
+      transition: left 2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .truck.drive { left: calc(50% - 50px); }
+
+    .truck svg { width: 100px; height: 70px; }
+
+    /* Wheel spin */
+    .wheel {
+      animation: none;
+    }
+
+    .truck.drive .wheel {
+      animation: wheelSpin 0.4s linear infinite;
+    }
+
+    @keyframes wheelSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Exhaust puffs */
+    .exhaust {
+      position: absolute;
+      left: -120px;
+      bottom: 16px;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .exhaust.animate { opacity: 1; }
+
+    .puff {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      animation: puffFade 1s ease-out infinite;
+    }
+
+    .puff:nth-child(2) { animation-delay: 0.3s; left: -8px; top: -4px; width: 8px; height: 8px; }
+    .puff:nth-child(3) { animation-delay: 0.6s; left: -14px; top: 2px; width: 10px; height: 10px; }
+
+    @keyframes puffFade {
+      0%   { opacity: 0.6; transform: translateX(0) scale(1); }
+      100% { opacity: 0; transform: translateX(-30px) scale(2); }
+    }
+
+    /* Package drop */
+    .package {
+      position: absolute;
+      right: 30%;
+      top: -40px;
+      opacity: 0;
+    }
+
+    .package.drop {
+      animation: pkgDrop 0.8s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes pkgDrop {
+      0%   { top: -40px; opacity: 0; transform: rotate(-20deg); }
+      60%  { top: 50px; opacity: 1; transform: rotate(5deg); }
+      80%  { top: 42px; transform: rotate(-2deg); }
+      100% { top: 46px; opacity: 1; transform: rotate(0deg); }
+    }
+
+    .package svg { width: 40px; height: 40px; }
+
+    /* Delivery stamp */
+    .stamp {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      opacity: 0;
+      transform: scale(2) rotate(-15deg);
+    }
+
+    .stamp.show {
+      animation: stampIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes stampIn {
+      0%   { opacity: 0; transform: scale(2) rotate(-15deg); }
+      100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+    }
+
+    .stamp-text {
+      font-size: 12px;
+      font-weight: 800;
+      color: #FBBF24;
+      border: 2px solid #FBBF24;
+      padding: 4px 12px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ───── Percentage ───── */
+    .percentage {
+      font-size: 72px;
+      font-weight: 800;
+      color: #FBBF24;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+    }
+
+    @keyframes counterPop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .percentage.pop {
+      animation: counterPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ───── Label ───── */
+    .label {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 6px;
+    }
+
+    .sublabel {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+
+    /* ───── Progress Steps ───── */
+    .delivery-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding: 0 8px;
+    }
+
+    .d-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .d-step.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .d-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .d-step.active .d-dot {
+      border-color: #FBBF24;
+      background: rgba(251, 191, 36, 0.15);
+    }
+
+    .d-step.done .d-dot {
+      border-color: #FBBF24;
+      background: #FBBF24;
+      color: #0f172a;
+    }
+
+    .d-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .d-step.active .d-label,
+    .d-step.done .d-label {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .d-line {
+      flex: 1;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      margin: 0 4px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .d-line-fill {
+      height: 100%;
+      width: 0;
+      background: #FBBF24;
+      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .d-line-fill.fill { width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="road-lines" id="roadLines"></div>
+
+  <div class="card" id="card">
+    <div class="step-badge">Step 3</div>
+    <div class="stamp" id="stamp">
+      <div class="stamp-text">Dispatched ✓</div>
+    </div>
+
+    <!-- Truck Animation Scene -->
+    <div class="truck-scene">
+      <div class="road"></div>
+      <div class="road-dashes" id="roadDashes"></div>
+
+      <div class="truck" id="truck">
+        <div class="exhaust" id="exhaust">
+          <div class="puff"></div>
+          <div class="puff"></div>
+          <div class="puff"></div>
+        </div>
+        <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Truck body -->
+          <rect x="2" y="14" width="52" height="38" rx="4" stroke="#FBBF24" stroke-width="2.5" fill="rgba(251,191,36,0.1)" />
+          <!-- Cabin -->
+          <path d="M54 28h18l12 14v10H54V28z" stroke="#FBBF24" stroke-width="2.5" fill="rgba(251,191,36,0.06)" />
+          <!-- Window -->
+          <rect x="58" y="31" width="14" height="9" rx="1.5" fill="rgba(251,191,36,0.15)" />
+          <!-- Front wheels -->
+          <g class="wheel" style="transform-origin: 18px 56px;">
+            <circle cx="18" cy="56" r="8" stroke="#FBBF24" stroke-width="2.5" fill="#0f172a" />
+            <circle cx="18" cy="56" r="2" fill="#FBBF24" />
+          </g>
+          <!-- Rear wheels -->
+          <g class="wheel" style="transform-origin: 72px 56px;">
+            <circle cx="72" cy="56" r="8" stroke="#FBBF24" stroke-width="2.5" fill="#0f172a" />
+            <circle cx="72" cy="56" r="2" fill="#FBBF24" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Package -->
+      <div class="package" id="package">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="12" width="32" height="24" rx="3" stroke="#FBBF24" stroke-width="2" fill="rgba(251,191,36,0.15)" />
+          <path d="M4 12l16-8 16 8" stroke="#FBBF24" stroke-width="2" fill="none" />
+          <line x1="20" y1="4" x2="20" y2="36" stroke="#FBBF24" stroke-width="1.5" opacity="0.3" />
+          <line x1="4" y1="24" x2="36" y2="24" stroke="#FBBF24" stroke-width="1.5" opacity="0.3" />
+          <!-- Tape/ribbon -->
+          <rect x="16" y="12" width="8" height="24" fill="rgba(251,191,36,0.12)" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="percentage" id="counter">0%</div>
+    <div class="label">Material Dispatch ke time</div>
+    <div class="sublabel">Your materials are on their way!</div>
+
+    <!-- Delivery Progress Steps -->
+    <div class="delivery-steps">
+      <div class="d-step" id="ds1">
+        <div class="d-dot">📦</div>
+        <div class="d-label">Packed</div>
+      </div>
+      <div class="d-line"><div class="d-line-fill" id="dl1"></div></div>
+      <div class="d-step" id="ds2">
+        <div class="d-dot">🚚</div>
+        <div class="d-label">Shipped</div>
+      </div>
+      <div class="d-line"><div class="d-line-fill" id="dl2"></div></div>
+      <div class="d-step" id="ds3">
+        <div class="d-dot">🏠</div>
+        <div class="d-label">Delivered</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    function animateCounter(el, target, duration) {
+      var start = performance.now();
+      function tick(now) {
+        var elapsed = now - start;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + "%";
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = target + "%";
+          el.classList.add("pop");
+          el.addEventListener("animationend", function handler() {
+            el.classList.remove("pop");
+            el.removeEventListener("animationend", handler);
+          });
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        var card = document.getElementById("card");
+        card.classList.add("reveal");
+        document.getElementById("roadLines").classList.add("visible");
+
+        setTimeout(function () {
+          /* Road dashes */
+          document.getElementById("roadDashes").classList.add("animate");
+
+          /* Truck drive in */
+          var truck = document.getElementById("truck");
+          var exhaust = document.getElementById("exhaust");
+          truck.classList.add("drive");
+          exhaust.classList.add("animate");
+
+          /* Counter */
+          animateCounter(document.getElementById("counter"), 50, 2200);
+
+          /* Package drop */
+          setTimeout(function () {
+            document.getElementById("package").classList.add("drop");
+          }, 1200);
+
+          /* Stamp appears */
+          setTimeout(function () {
+            document.getElementById("stamp").classList.add("show");
+          }, 2000);
+
+          /* Delivery steps */
+          var ds1 = document.getElementById("ds1");
+          var ds2 = document.getElementById("ds2");
+          var ds3 = document.getElementById("ds3");
+          var dl1 = document.getElementById("dl1");
+          var dl2 = document.getElementById("dl2");
+
+          setTimeout(function () {
+            ds1.classList.add("show", "done");
+          }, 600);
+          setTimeout(function () {
+            dl1.classList.add("fill");
+          }, 900);
+          setTimeout(function () {
+            ds2.classList.add("show", "active");
+          }, 1200);
+          setTimeout(function () {
+            dl2.classList.add("fill");
+          }, 1600);
+          setTimeout(function () {
+            ds3.classList.add("show");
+          }, 1900);
+        }, 1000);
+      }, 500);
+    });
+  </script>
+</body>
+</html>

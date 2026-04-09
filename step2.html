@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Step 2 — 40% Training Complete</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Montserrat", sans-serif;
+      background: #0f172a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ───── Card ───── */
+    .card {
+      position: relative;
+      width: 380px;
+      padding: 48px 36px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+      text-align: center;
+      opacity: 0;
+      transform: rotateY(90deg);
+      perspective: 800px;
+    }
+
+    .card.reveal {
+      animation: flipIn 1.2s cubic-bezier(0.34, 1.2, 0.64, 1) forwards;
+    }
+
+    @keyframes flipIn {
+      0%   { opacity: 0; transform: rotateY(90deg) scale(0.8); }
+      60%  { opacity: 1; transform: rotateY(-5deg) scale(1.02); }
+      100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+    }
+
+    /* ───── Step Badge ───── */
+    .step-badge {
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 20px;
+      border-radius: 20px;
+      background: #34D399;
+      color: #0f172a;
+    }
+
+    /* ───── Circular Progress Ring ───── */
+    .ring-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 20px auto 28px;
+    }
+
+    .ring-bg, .ring-fg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .ring-bg circle {
+      fill: none;
+      stroke: rgba(255,255,255,0.06);
+      stroke-width: 10;
+    }
+
+    .ring-fg circle {
+      fill: none;
+      stroke: url(#greenGrad);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      transition: stroke-dashoffset 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .ring-fg circle.animate {
+      /* 40% of 440 = 176;  440 - 176 = 264 */
+      stroke-dashoffset: 264;
+    }
+
+    /* Glow pulse on ring */
+    .ring-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px solid rgba(52, 211, 153, 0.2);
+      opacity: 0;
+    }
+
+    .ring-glow.animate {
+      animation: ringGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes ringGlow {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50%      { opacity: 0.6; transform: scale(1.08); }
+    }
+
+    /* Center counter inside ring */
+    .ring-counter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .ring-counter .percentage {
+      font-size: 44px;
+      font-weight: 800;
+      color: #34D399;
+      line-height: 1;
+      text-shadow: 0 0 24px rgba(52, 211, 153, 0.4);
+    }
+
+    .ring-counter .sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    @keyframes counterPop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .percentage.pop {
+      animation: counterPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ───── Graduation Icon ───── */
+    .icon-wrap {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(52, 211, 153, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .icon-wrap svg { width: 40px; height: 40px; }
+
+    /* ───── Sparkle Burst ───── */
+    .sparkle-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .sparkle-star {
+      position: absolute;
+      opacity: 0;
+      font-size: 14px;
+    }
+
+    .sparkle-star.burst {
+      animation: sparkleBurst 1.5s ease-out forwards;
+    }
+
+    @keyframes sparkleBurst {
+      0%   { opacity: 0; transform: scale(0) translate(0, 0); }
+      30%  { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(0.5) translate(var(--dx), var(--dy)); }
+    }
+
+    /* ───── Label ───── */
+    .label {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 10px;
+    }
+
+    .sublabel {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+
+    /* ───── Progress Bar ───── */
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #34D399, #6EE7B7);
+      box-shadow: 0 0 16px rgba(52, 211, 153, 0.5);
+      position: relative;
+      transition: width 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #6EE7B7;
+      box-shadow: 0 0 16px #34D399;
+      opacity: 0;
+      transition: opacity 0.5s 1s;
+    }
+
+    .progress-fill.animate { width: 40%; }
+    .progress-fill.animate::after { opacity: 1; }
+
+    /* ───── Checkmarks ───── */
+    .checklist {
+      margin-top: 20px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .check-item.show {
+      opacity: 1;
+      transform: translateX(0);
+      color: rgba(255,255,255,0.8);
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(52, 211, 153, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .check-item.show .check-icon {
+      background: #34D399;
+    }
+
+    .check-icon svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .check-item.show .check-icon svg { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="step-badge">Step 2</div>
+    <div class="sparkle-container" id="sparkleContainer"></div>
+
+    <!-- Circular Progress Ring -->
+    <div class="ring-wrap">
+      <svg class="ring-bg" viewBox="0 0 160 160">
+        <circle cx="80" cy="80" r="70" />
+      </svg>
+      <svg class="ring-fg" viewBox="0 0 160 160">
+        <defs>
+          <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#34D399" />
+            <stop offset="100%" stop-color="#6EE7B7" />
+          </linearGradient>
+        </defs>
+        <circle cx="80" cy="80" r="70" id="ringCircle" />
+      </svg>
+      <div class="ring-glow" id="ringGlow"></div>
+      <div class="ring-counter">
+        <div class="percentage" id="counter">0%</div>
+        <div class="sub">completed</div>
+      </div>
+    </div>
+
+    <!-- Grad Cap Icon -->
+    <div class="icon-wrap">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,4 2,14 18,24 34,14" stroke="#34D399" stroke-width="2" fill="rgba(52,211,153,0.15)" />
+        <polyline points="28,17 28,28 18,32 8,28 8,17" stroke="#34D399" stroke-width="2" fill="none" />
+        <line x1="34" y1="14" x2="34" y2="28" stroke="#34D399" stroke-width="2" />
+        <circle cx="34" cy="29" r="1.5" fill="#34D399" />
+      </svg>
+    </div>
+
+    <div class="label">Training Complete hone par</div>
+    <div class="sublabel">Your learning journey is 40% done</div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Animated Checklist -->
+    <div class="checklist">
+      <div class="check-item" id="chk1">
+        <div class="check-icon">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Module 1 — Basics</span>
+      </div>
+      <div class="check-item" id="chk2">
+        <div class="check-icon">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Module 2 — Listing Setup</span>
+      </div>
+      <div class="check-item" id="chk3">
+        <div class="check-icon">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span>Module 3 — Advanced (in progress)</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    "use strict";
+
+    function animateCounter(el, target, duration) {
+      var start = performance.now();
+      function tick(now) {
+        var elapsed = now - start;
+        var progress = Math.min(elapsed / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + "%";
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = target + "%";
+          el.classList.add("pop");
+          el.addEventListener("animationend", function handler() {
+            el.classList.remove("pop");
+            el.removeEventListener("animationend", handler);
+          });
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function burstSparkles() {
+      var container = document.getElementById("sparkleContainer");
+      var symbols = ["✦", "✧", "⭐", "💚", "✨"];
+      var cx = 190, cy = 120;
+      for (var i = 0; i < 12; i++) {
+        var star = document.createElement("div");
+        star.className = "sparkle-star";
+        star.textContent = symbols[i % symbols.length];
+        var angle = (i / 12) * 2 * Math.PI;
+        var dist = 80 + Math.random() * 60;
+        var dx = Math.cos(angle) * dist;
+        var dy = Math.sin(angle) * dist;
+        star.style.left = cx + "px";
+        star.style.top = cy + "px";
+        star.style.setProperty("--dx", dx + "px");
+        star.style.setProperty("--dy", dy + "px");
+        star.style.animationDelay = (i * 0.06) + "s";
+        container.appendChild(star);
+        star.classList.add("burst");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      setTimeout(function () {
+        var card = document.getElementById("card");
+        card.classList.add("reveal");
+
+        setTimeout(function () {
+          /* Ring animation */
+          document.getElementById("ringCircle").classList.add("animate");
+          document.getElementById("ringGlow").classList.add("animate");
+
+          /* Counter */
+          animateCounter(document.getElementById("counter"), 40, 2200);
+
+          /* Progress bar */
+          setTimeout(function () {
+            document.getElementById("progressFill").classList.add("animate");
+          }, 300);
+
+          /* Sparkle burst */
+          setTimeout(burstSparkles, 1000);
+
+          /* Checklist items stagger */
+          setTimeout(function () { document.getElementById("chk1").classList.add("show"); }, 800);
+          setTimeout(function () { document.getElementById("chk2").classList.add("show"); }, 1200);
+          setTimeout(function () { document.getElementById("chk3").classList.add("show"); }, 1600);
+        }, 1000);
+      }, 500);
+    });
+  </script>
+</body>
+</html>
