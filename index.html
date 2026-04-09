@@ -122,7 +122,7 @@
     }
 
     .column-card.visible {
-      animation: cardReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation: cardReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
     @keyframes cardReveal {
@@ -211,7 +211,7 @@
       border-radius: 3px;
       background: linear-gradient(90deg, #34D399, #6EE7B7);
       position: relative;
-      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .progress-fill::after {
@@ -248,7 +248,7 @@
       position: absolute;
       left: -50px;
       top: 4px;
-      transition: left 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: left 2s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .truck-icon.animate {
@@ -297,7 +297,7 @@
     /* ───── Wallet Fill Animation (Column 1) ───── */
     .wallet-fill {
       clip-path: inset(100% 0 0 0);
-      transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: clip-path 1.2s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .wallet-fill.animate {
@@ -340,7 +340,7 @@
       text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
       opacity: 0;
       transform: translateY(16px);
-      transition: opacity 0.6s, transform 0.6s;
+      transition: opacity 1s, transform 1s;
     }
 
     .bottom-text.visible {
@@ -390,7 +390,7 @@
       <div class="connector"></div>
 
       <!-- Column 1 — Booking Amount -->
-      <div class="column-card" data-delay="0">
+      <div class="column-card" data-delay="0" data-step="1">
         <div class="step-badge">Step 1</div>
         <div class="icon-wrap">
           <!-- Wallet Icon -->
@@ -407,7 +407,7 @@
       </div>
 
       <!-- Column 2 — Training Complete -->
-      <div class="column-card" data-delay="300">
+      <div class="column-card" data-delay="2000" data-step="2">
         <div class="step-badge">Step 2</div>
         <div class="icon-wrap">
           <!-- Graduation Cap Icon -->
@@ -430,7 +430,7 @@
       </div>
 
       <!-- Column 3 — Material Dispatch -->
-      <div class="column-card" data-delay="600">
+      <div class="column-card" data-delay="4000" data-step="3">
         <div class="step-badge">Step 3</div>
         <div class="icon-wrap">
           <!-- Delivery Truck Icon -->
@@ -500,7 +500,7 @@
       requestAnimationFrame(tick);
     }
 
-    /* ───── Staggered Reveal ───── */
+    /* ───── Staggered Reveal (sequential: each step fully animates before next) ───── */
     function startAnimation() {
       const cards = document.querySelectorAll(".column-card");
 
@@ -509,16 +509,16 @@
         setTimeout(function () {
           card.classList.add("visible");
 
-          /* Trigger card-specific animations after reveal */
-          const revealDuration = 600; /* match CSS animation duration */
+          /* Trigger card-specific animations after the card reveal settles */
+          const revealDuration = 1000; /* match CSS animation duration (1s) */
           setTimeout(function () {
             triggerCardAnimation(card);
-          }, revealDuration * 0.5);
+          }, revealDuration * 0.6);
         }, delay);
       });
 
-      /* Show bottom text after all columns are visible */
-      var totalDelay = 600 + 600 + 400; /* last card delay + reveal + buffer */
+      /* Show bottom text after all columns are fully visible + animated */
+      var totalDelay = 4000 + 1000 + 1200 + 600; /* last card delay + reveal + inner anim + buffer */
       setTimeout(function () {
         document.getElementById("bottomText").classList.add("visible");
       }, totalDelay);
@@ -532,23 +532,23 @@
           /* Column 1: wallet fill + counter */
           var walletFill = card.querySelector(".wallet-fill");
           if (walletFill) walletFill.classList.add("animate");
-          animateCounter(document.getElementById("counter1"), 10, 800);
+          animateCounter(document.getElementById("counter1"), 10, 1200);
           break;
 
         case 1:
           /* Column 2: sparkle + counter + progress bar */
           var sparkle = card.querySelector(".sparkle");
           if (sparkle) sparkle.classList.add("animate");
-          animateCounter(document.getElementById("counter2"), 40, 1000);
+          animateCounter(document.getElementById("counter2"), 40, 1400);
           var progressFill = document.getElementById("progressFill");
           setTimeout(function () {
             progressFill.classList.add("animate");
-          }, 200);
+          }, 400);
           break;
 
         case 2:
           /* Column 3: truck + box + counter */
-          animateCounter(document.getElementById("counter3"), 50, 1000);
+          animateCounter(document.getElementById("counter3"), 50, 1400);
           var truck = document.getElementById("truckIcon");
           var box = document.getElementById("boxIcon");
           truck.classList.add("animate");
