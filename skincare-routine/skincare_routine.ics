@@ -1,0 +1,138 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Skincare Routine//Professional Dermatologist Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Professional Skincare Routine
+X-WR-TIMEZONE:UTC
+X-WR-CALDESC:Dermatologist-level skincare routine schedule
+
+BEGIN:VEVENT
+UID:am-skincare-routine-daily@skincare-routine
+DTSTART:20260413T070000Z
+DTEND:20260413T073000Z
+RRULE:FREQ=DAILY
+SUMMARY:☀️ AM Skincare Routine — Daily Morning
+DESCRIPTION:MORNING ROUTINE — 7:00 AM (30 min)\n\nProducts Used:\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Vitamin C + E + Ferulic 16% Face Serum\n• Minimalist Hyaluronic + PGA 0.2% Face Serum\n• Dr. Sheth's Ceramide & Vitamin C Oil-Free Moisturizer\n• Beauty of Joseon Relief Sun SPF 50+ PA++++\n\nSTEPS:\n1. CLEANSE — Gentle pH-balanced face wash. Lukewarm water\, massage 30–60 sec.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin). Pat gently. Provides deep hydration + barrier repair.\n3. VITAMIN C SERUM — Minimalist Vitamin C + E + Ferulic 16% (4–5 drops to face & neck). Your photoprotection + antioxidant layer.\n4. HYDRATING SERUM — Minimalist Hyaluronic + PGA 0.2% (3–4 drops on still-DAMP skin). PGA holds 5× more moisture than HA alone.\n5. MOISTURIZER — Dr. Sheth's Ceramide & Vitamin C Oil-Free Moisturizer (thin layer). Oil-free = ideal for AM.\n6. SUNSCREEN — Beauty of Joseon SPF 50+ PA++++ (2 finger-lengths / ~1/4 tsp for face). REAPPLY every 2–3 hours if outdoors.\n\n⚠️ AM WARNINGS:\n• NEVER use Retinol or AHA/BHA Peel in the morning — UV + actives = photosensitivity & irritation.\n• Never layer both Vitamin C serums in the same routine — use Minimalist 16% CEF; it is clinically superior.\n• Sunscreen is NON-NEGOTIABLE — it is the #1 anti-aging step.\n• Store Vitamin C serum in a cool\, dark place — it oxidizes fast. Discard if it turns dark orange/brown.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until AM Skincare Routine — get your products ready!
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-monday-niacinamide@skincare-routine
+DTSTART:20260413T210000Z
+DTEND:20260413T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=MO
+SUMMARY:🌙 PM Skincare — Niacinamide 10% (Monday)
+DESCRIPTION:MONDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist Niacinamide 10%\nFocus: Sebum regulation & pore refinement\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Niacinamide 10% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser first (removes sunscreen + sebum)\, then water-based cleanser (removes remaining impurities).\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin). Accelerates overnight repair.\n3. ACTIVE SERUM — Minimalist Niacinamide 10% (2–3 drops). Sebum control\, pore refinement\, skin tone evening. Safe and gentle.\n4. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer). Ceramides + Betaine repair barrier overnight. B12 calms redness.\n\n💡 NOTES:\n• Niacinamide is safe with all products in this routine.\n• Great start to the week — prepares skin for Tuesday's Retinol.\n• Monday = sebum regulation + tone evening night.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Monday Niacinamide night!
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-tuesday-retinol@skincare-routine
+DTSTART:20260414T210000Z
+DTEND:20260414T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=TU
+SUMMARY:🌙 PM Skincare — Retinol 0.3% (Tuesday)
+DESCRIPTION:TUESDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist Retinol 0.3%\nFocus: Anti-aging & accelerated cell turnover\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Retinol 0.3% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser. Pat skin DRY completely.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin). Can be used as a buffer before Retinol if skin is sensitive.\n3. WAIT — Let skin dry fully (5–10 min) before applying Retinol.\n4. ACTIVE SERUM — Minimalist Retinol 0.3% (2–3 drops on COMPLETELY DRY skin). Apply to forehead\, cheeks\, chin — avoid eye area and lips.\n5. WAIT 20 MINUTES — Allow Retinol to absorb before moisturizer.\n6. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer).\n\n⚠️ RETINOL WARNINGS:\n• Apply Retinol to DRY skin ONLY — damp skin increases penetration and irritation risk.\n• NEVER combine Retinol + Vitamin C in the same routine (different pH — they destabilize each other).\n• NEVER combine Retinol + AHA/BHA Peel in the same night (double exfoliation = chemical burn risk).\n• Always use SPF the following morning — Retinol increases photosensitivity.\n• Weeks 1–2: Use Retinol only 1× per week. Build tolerance before 2×/week schedule.\n• If redness/peeling occurs\, apply Snail Mucin as a buffer between Retinol and moisturizer.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Tuesday Retinol night! Ensure skin is DRY before applying.
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-wednesday-niacinamide@skincare-routine
+DTSTART:20260415T210000Z
+DTEND:20260415T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=WE
+SUMMARY:🌙 PM Skincare — Niacinamide 10% (Wednesday)
+DESCRIPTION:WEDNESDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist Niacinamide 10%\nFocus: Recovery from Tuesday Retinol\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Niacinamide 10% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin).\n3. ACTIVE SERUM — Minimalist Niacinamide 10% (2–3 drops). Soothes & repairs skin after Retinol.\n4. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer).\n\n💡 NOTES:\n• Wednesday is a RECOVERY night — Niacinamide counteracts any redness/irritation from Tuesday's Retinol.\n• Niacinamide strengthens the skin barrier and calms inflammation.\n• Do NOT use Retinol tonight — give your skin time to recover.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Wednesday Niacinamide recovery night!
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-thursday-retinol@skincare-routine
+DTSTART:20260416T210000Z
+DTEND:20260416T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=TH
+SUMMARY:🌙 PM Skincare — Retinol 0.3% (Thursday)
+DESCRIPTION:THURSDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist Retinol 0.3%\nFocus: Second retinol night (anti-aging & cell turnover)\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Retinol 0.3% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser. Pat skin DRY completely.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin). Buffer layer if skin is sensitive.\n3. WAIT — Let skin dry fully (5–10 min) before applying Retinol.\n4. ACTIVE SERUM — Minimalist Retinol 0.3% (2–3 drops on COMPLETELY DRY skin).\n5. WAIT 20 MINUTES — Allow Retinol to absorb before moisturizer.\n6. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer).\n\n⚠️ RETINOL WARNINGS:\n• Apply Retinol to DRY skin ONLY.\n• NEVER combine Retinol + Vitamin C (different pH levels).\n• NEVER combine Retinol + AHA/BHA Peel.\n• Always use SPF the following morning.\n• Weeks 1–2: Only do 1× per week — skip Thursday Retinol and use Niacinamide instead. Add second Retinol night only in week 3+.\n• Monitor for irritation — if flaking or redness occurs\, revert to Niacinamide this night.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Thursday Retinol night! Ensure skin is DRY before applying.
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-friday-niacinamide@skincare-routine
+DTSTART:20260417T210000Z
+DTEND:20260417T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=FR
+SUMMARY:🌙 PM Skincare — Niacinamide 10% (Friday)
+DESCRIPTION:FRIDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist Niacinamide 10%\nFocus: Peel prep — calm & balance before Saturday AHA/BHA\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Niacinamide 10% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin).\n3. ACTIVE SERUM — Minimalist Niacinamide 10% (2–3 drops). Preps skin for tomorrow's peel.\n4. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer).\n\n💡 NOTES:\n• Friday = preparation night. Niacinamide ensures skin is calm\, balanced and barrier is intact before the chemical peel tomorrow.\n• Do NOT use AHA/BHA or Retinol tonight.\n• Keep skin well-hydrated tonight for better peel results tomorrow.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Friday Niacinamide prep night before Saturday peel!
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-saturday-peel@skincare-routine
+DTSTART:20260418T210000Z
+DTEND:20260418T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=SA
+SUMMARY:🌙 PM Skincare — AHA PHA BHA 32% Peel (Saturday)
+DESCRIPTION:SATURDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Minimalist AHA PHA BHA 32% Face Peel\nFocus: Exfoliation\, instant glow\, texture refinement\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• Minimalist AHA PHA BHA 32% Face Peel\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser. Pat skin COMPLETELY DRY.\n2. WAIT 10–15 minutes — Skin must be fully dry before peel application.\n3. PEEL — Apply a thin\, even layer of Minimalist AHA PHA BHA 32% to face (avoid eye area\, lips\, and nostrils).\n4. LEAVE ON 10 MINUTES MAXIMUM — Do not exceed. Set a timer!\n5. RINSE THOROUGHLY — Use cool/lukewarm water to completely remove the peel.\n6. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on damp skin). Soothes and starts repair immediately.\n7. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer). Critical for barrier recovery.\n\n⚠️ PEEL WARNINGS:\n• Apply to DRY skin ONLY — wet skin increases penetration and burn risk.\n• NEVER exceed 10 minutes — acid overload causes skin barrier damage.\n• Do NOT use Retinol or Vitamin C on peel nights.\n• NEVER combine AHA/BHA + Retinol (same night) — chemical burn risk.\n• NEVER combine AHA/BHA + Vitamin C — over-exfoliation and extreme irritation.\n• Apply SPF next morning WITHOUT FAIL — exfoliation increases UV sensitivity significantly.\n• Weeks 1–2: Skip the peel entirely. Introduce in week 3 at 5 minutes only.\n• If stinging is severe (beyond mild tingling)\, rinse off immediately.\n• Skip this night if skin is currently irritated\, sunburned or compromised.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Saturday AHA/BHA Peel night! Set a 10-minute timer. Apply to DRY skin only!
+END:VALARM
+END:VEVENT
+
+BEGIN:VEVENT
+UID:pm-skincare-sunday-hydration@skincare-routine
+DTSTART:20260419T210000Z
+DTEND:20260419T213000Z
+RRULE:FREQ=WEEKLY;BYDAY=SU
+SUMMARY:🌙 PM Skincare — Hydration Rest Day (Sunday)
+DESCRIPTION:SUNDAY EVENING ROUTINE — 9:00 PM (30 min)\nACTIVE: Hyaluronic + PGA 0.2% ONLY — No actives\nFocus: Full barrier recovery & deep hydration\n\nProducts Used:\n• Oil cleanser + water-based cleanser (double cleanse)\n• COSRX Advanced Snail 96 Mucin Power Essence\n• Minimalist Hyaluronic + PGA 0.2% Face Serum\n• Minimalist B12 + Repair Complex 5.5% Face Moisturizer\n\nSTEPS:\n1. DOUBLE CLEANSE — Oil cleanser → water-based cleanser.\n2. ESSENCE — COSRX Snail 96 Mucin (2–3 pumps on DAMP skin). Generous layer — this is a hydration night.\n3. HYDRATING SERUM — Minimalist Hyaluronic + PGA 0.2% (3–4 drops on DAMP skin). Maximum hydration boost. PGA holds 5× more moisture than HA alone.\n4. MOISTURIZER — Minimalist B12 + Repair Complex 5.5% (generous layer). Seal in all hydration.\n\n💡 NOTES:\n• Sunday = REST DAY. Zero actives (no Retinol\, no Niacinamide\, no AHA/BHA\, no Vitamin C).\n• After Saturday's chemical peel\, skin needs FULL recovery with hydration only.\n• Hydrate heavily — apply serum and moisturizer in thicker layers than usual.\n• Go to bed early if possible — skin repair peaks between 11 PM–3 AM.\n• Assess skin condition for the coming week's routine.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:⏰ 15 min until PM Skincare — Sunday REST & Hydration Day. No actives tonight!
+END:VALARM
+END:VEVENT
+
+END:VCALENDAR
