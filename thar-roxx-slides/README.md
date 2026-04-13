@@ -1,12 +1,12 @@
 # Thar Roxx – 6 Hidden Features Slides 🚗🔥
 
-Instagram carousel-style HTML slides showcasing 6 hidden features of the **Mahindra Thar Roxx**.
+Instagram carousel-style HTML project with **7 slides** (1 cover + 6 feature slides) showcasing the hidden features of the **Mahindra Thar Roxx**.
 
 ## 📋 Slides Overview
 
 | Slide | Feature |
 |-------|---------|
-| 1 | Cover — सभी 6 Hidden Features की लिस्ट |
+| 1 | **Cover** — सभी 6 Hidden Features की लिस्ट |
 | 2 | Panoramic Sunroof — वॉइस कमांड से खुले |
 | 3 | Level 2 ADAS — ऑटो ब्रेकिंग + लेन असिस्ट |
 | 4 | Harman Kardon 9-Speaker Sound System |
